@@ -1,226 +1,175 @@
-import 'package:emart_app/consts/consts.dart';
+import 'package:emart_app/consts/images.dart';
+import 'package:emart_app/views/cart_screen/cart_controller.dart';
+import 'package:emart_app/views/cart_screen/cart_screen.dart';
+// import 'package:emart_app/controllers/cart_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
+import 'package:emart_app/consts/colors.dart';
+import 'package:emart_app/consts/styles.dart';
 import 'package:emart_app/widget_common/our_button.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 
-class ItemDetails extends StatelessWidget {
+class ItemDetails extends StatefulWidget {
   final String? title;
-  const ItemDetails({super.key, required this.title});
+  final String? price;
+
+  const ItemDetails({Key? key, required this.title, required this.price})
+      : super(key: key);
+
+  @override
+  _ItemDetailsState createState() => _ItemDetailsState();
+}
+
+class _ItemDetailsState extends State<ItemDetails> {
+  int quantity = 0;
+  String name = '';
+  String address = '';
+  String shippingMethod = '';
+  final CartController cartController = Get.find<CartController>();
+
+  double get totalPrice => quantity * double.parse(widget.price ?? '0');
+
+  void addToCart(BuildContext context) {
+    if (quantity > 0) {
+      cartController.addItemToCart(
+          widget.title ?? '', widget.price ?? '', quantity);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('${widget.title ?? ''} added to cart!'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+
+      Get.to(() => CartScreen());
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please select at least one item'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: lightGrey,
       appBar: AppBar(
-        title: title!.text.color(darkFontGrey).fontFamily(bold).make(),
+        title: widget.title!.text.color(darkFontGrey).fontFamily(bold).make(),
         actions: [
           IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.share,
-              )),
+            onPressed: () {},
+            icon: const Icon(Icons.share),
+          ),
           IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.favorite_outline,
-              )),
+            onPressed: () {},
+            icon: const Icon(Icons.favorite_outline),
+          ),
         ],
       ),
       body: Column(
         children: [
           Expanded(
-              child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: SingleChildScrollView(
-              child: Column(
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: SingleChildScrollView(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    //swipper
                     VxSwiper.builder(
-                        autoPlay: true,
-                        height: 350,
-                        itemCount: 3,
-                        aspectRatio: 16 / 9,
-                        itemBuilder: (context, index) {
-                          return Image.asset(
-                            imgB1,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                          );
-                        }),
+                      autoPlay: true,
+                      height: 350,
+                      itemCount: 3,
+                      aspectRatio: 16 / 9,
+                      itemBuilder: (context, index) {
+                        return Image.asset(
+                          imgB1,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        );
+                      },
+                    ),
                     10.heightBox,
-                    title!.text
+                    widget.title!.text
                         .size(16)
                         .color(darkFontGrey)
                         .fontFamily(bold)
                         .xl
                         .make(),
                     10.heightBox,
-                    VxRating(
-                      onRatingUpdate: (value) {},
-                      normalColor: textfieldGrey,
-                      selectionColor: golden,
-                      count: 5,
-                      size: 25,
-                      stepInt: true,
-                    ),
-                    10.heightBox,
-                    'Price: \$100'
-                        .text
+                    widget.price!.text
                         .size(16)
                         .color(darkFontGrey)
                         .fontFamily(bold)
+                        .xl
                         .make(),
                     10.heightBox,
                     Row(
                       children: [
-                        Expanded(
-                            child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            "Seller".text.white.fontFamily(semibold).make(),
-                            5.heightBox,
-                            "hahah"
-                                .text
-                                .white
-                                .fontFamily(semibold)
-                                .color(darkFontGrey)
-                                .size(16)
-                                .make(),
-                          ],
-                        )),
-                        CircleAvatar(
-                          backgroundColor: whiteColor,
-                          child: Icon(
-                            Icons.message_rounded,
-                            color: blueColor,
-                          ),
+                        SizedBox(
+                          width: 100,
+                          child: 'Quantity'
+                              .text
+                              .size(16)
+                              .color(darkFontGrey)
+                              .make(),
                         ),
+                        IconButton(
+                          onPressed: () {
+                            if (quantity > 0) {
+                              setState(() {
+                                quantity--;
+                              });
+                            }
+                          },
+                          icon: Icon(Icons.remove),
+                        ),
+                        Text('$quantity')
+                            .text
+                            .size(16)
+                            .color(darkFontGrey)
+                            .make(),
+                        IconButton(
+                          onPressed: () {
+                            setState(() {
+                              quantity++;
+                            });
+                          },
+                          icon: Icon(Icons.add),
+                        ),
+                        Text('(Available)').text.make(),
                       ],
-                    )
-                        .box
-                        .height(68)
-                        .padding(EdgeInsets.symmetric(horizontal: 16))
-                        .color(textfieldGrey)
-                        .rounded
-                        .make(),
-                    20.heightBox,
-
-                    Column(
+                    ).box.padding(EdgeInsets.all(8)).make(),
+                    Row(
                       children: [
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: 100,
-                              child: 'Color'
-                                  .text
-                                  .size(16)
-                                  .color(darkFontGrey)
-                                  .make(),
-                            ),
-                            Row(
-                              children: List.generate(
-                                3,
-                                (index) => VxBox()
-                                    .size(40, 40)
-                                    .roundedFull
-                                    .color(Vx.randomPrimaryColor)
-                                    .margin(EdgeInsets.symmetric(horizontal: 4))
-                                    .make(),
-
-                                //quantity
-                              ),
-                            ),
-                          ],
-
-                          //quantity
-                        ).box.padding(EdgeInsets.all(8)).make(),
-
-                        //Quantity
-
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: 100,
-                              child: 'Quantitys'
-                                  .text
-                                  .size(16)
-                                  .color(darkFontGrey)
-                                  .make(),
-                            ),
-                            Row(
-                              children: [
-                                IconButton(
-                                    onPressed: () {}, icon: Icon(Icons.remove)),
-                                '0'
-                                    .text
-                                    .size(16)
-                                    .color(darkFontGrey)
-                                    .fontFamily(bold)
-                                    .make(),
-                                IconButton(
-                                    onPressed: () {}, icon: Icon(Icons.add)),
-                                10.heightBox,
-                                '(0 Available)'
-                                    .text
-                                    .fontFamily(semibold)
-                                    .make(),
-                              ],
-                            ),
-                          ],
-                          //quantity
-                        ).box.padding(EdgeInsets.all(8)).make(),
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: 100,
-                              child: 'Total'
-                                  .text
-                                  .size(16)
-                                  .color(darkFontGrey)
-                                  .make(),
-                            ),
-                            '\$0.00'
-                                .text
-                                .color(blueColor)
-                                .fontFamily(bold)
-                                .size(16)
-                                .make(),
-                          ],
-
-                          //quantity
-                        ).box.padding(EdgeInsets.all(8)).make(),
+                        SizedBox(
+                          width: 100,
+                          child:
+                              'Total'.text.size(16).color(darkFontGrey).make(),
+                        ),
+                        Text('\$${totalPrice.toStringAsFixed(2)}')
+                            .text
+                            .color(blueColor)
+                            .size(16)
+                            .make(),
                       ],
-                    ).box.white.shadowSm.make(),
-
-                    //deskripsi
-
-                    10.heightBox,
-                    'Description'
-                        .text
-                        .size(16)
-                        .color(darkFontGrey)
-                        .fontFamily(bold)
-                        .make(),
-                    10.heightBox,
-                    'This is a very good product'
-                        .text
-                        .size(16)
-                        .color(darkFontGrey)
-                        .make(),
-                    10.heightBox,
-                  ]),
+                    ).box.padding(EdgeInsets.all(8)).make(),
+                  ],
+                ),
+              ),
             ),
-          )),
+          ),
           SizedBox(
             width: double.infinity,
             height: 60,
             child: ourButton(
-                color: blueColor,
-                onPress: () {},
-                textColor: whiteColor,
-                title: 'Add to Cart'),
+              color: blueColor,
+              onPress: () => addToCart(context),
+              textColor: whiteColor,
+              title: 'Add to Cart',
+            ),
           ),
         ],
       ),
