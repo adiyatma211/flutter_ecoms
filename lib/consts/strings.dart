@@ -1,8 +1,8 @@
 const appname = "Terang Mart";
 const appversion = "Version 1.0.0";
-const credits = "@KennyPuggy";
+const credits = "@Terang Mart";
 const name = "name";
-const nameHint = "kenny puggy";
+const nameHint = "Email";
 const password = "password";
 const passwordHint = "********";
 const forgetPass = "Forget Password";

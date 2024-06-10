@@ -7,11 +7,10 @@ import 'package:emart_app/consts/list.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(12),
+      padding: const EdgeInsets.all(12),
       color: lightGrey,
       width: context.screenWidth,
       height: context.screenHeight,
@@ -23,7 +22,7 @@ class HomeScreen extends StatelessWidget {
             height: 60,
             color: lightGrey,
             child: TextFormField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   border: InputBorder.none,
                   suffixIcon: Icon(Icons.search),
                   filled: true,
@@ -38,23 +37,23 @@ class HomeScreen extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
-                  VxSwiper.builder(
-                      aspectRatio: 16 / 9,
-                      autoPlay: true,
-                      height: 150,
-                      enlargeCenterPage: true,
-                      itemCount: slidersList.length,
-                      itemBuilder: (context, index) {
-                        return Image.asset(
-                          slidersList[index],
-                          fit: BoxFit.fill,
-                        )
-                            .box
-                            .rounded
-                            .clip(Clip.antiAlias)
-                            .margin(const EdgeInsets.symmetric(horizontal: 8))
-                            .make();
-                      }),
+                  // VxSwiper.builder(
+                  //     aspectRatio: 16 / 9,
+                  //     autoPlay: true,
+                  //     height: 150,
+                  //     enlargeCenterPage: true,
+                  //     itemCount: slidersList.length,
+                  //     itemBuilder: (context, index) {
+                  //       return Image.asset(
+                  //         slidersList[index],
+                  //         fit: BoxFit.fill,
+                  //       )
+                  //           .box
+                  //           .rounded
+                  //           .clip(Clip.antiAlias)
+                  //           .margin(const EdgeInsets.symmetric(horizontal: 8))
+                  //           .make();
+                  //     }),
                   10.heightBox,
                   // deals Buttons
                   Row(
@@ -66,24 +65,6 @@ class HomeScreen extends StatelessWidget {
                               width: context.screenWidth / 2.5,
                               icon: index == 0 ? icTodaysDeal : icFlashDeal,
                               title: index == 0 ? todayDeal : flashsale))),
-                  10.heightBox,
-                  VxSwiper.builder(
-                      aspectRatio: 16 / 9,
-                      autoPlay: true,
-                      height: 150,
-                      enlargeCenterPage: true,
-                      itemCount: secondslidersList.length,
-                      itemBuilder: (context, index) {
-                        return Image.asset(
-                          slidersList[index],
-                          fit: BoxFit.fill,
-                        )
-                            .box
-                            .rounded
-                            .clip(Clip.antiAlias)
-                            .margin(const EdgeInsets.symmetric(horizontal: 8))
-                            .make();
-                      }),
                   10.heightBox,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -106,7 +87,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   // feature Categories
                   20.heightBox,
-                  Align(
+                  const Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
                       featuredCategories,
@@ -139,9 +120,9 @@ class HomeScreen extends StatelessWidget {
                   //Featured Producy
                   20.heightBox,
                   Container(
-                    padding: EdgeInsets.all(12),
+                    padding: const EdgeInsets.all(12),
                     width: double.infinity,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: blueColor,
                     ),
                     child: Column(
@@ -192,26 +173,6 @@ class HomeScreen extends StatelessWidget {
                           )
                         ]),
                   ),
-                  20.heightBox,
-                  VxSwiper.builder(
-                      aspectRatio: 16 / 9,
-                      autoPlay: true,
-                      height: 150,
-                      enlargeCenterPage: true,
-                      itemCount: secondslidersList.length,
-                      itemBuilder: (context, index) {
-                        return Image.asset(
-                          slidersList[index],
-                          fit: BoxFit.fill,
-                        )
-                            .box
-                            .rounded
-                            .clip(Clip.antiAlias)
-                            .margin(const EdgeInsets.symmetric(horizontal: 8))
-                            .make();
-                      }),
-
-                  //allProduct
                   20.heightBox,
                   GridView.builder(
                       physics: const NeverScrollableScrollPhysics(),
