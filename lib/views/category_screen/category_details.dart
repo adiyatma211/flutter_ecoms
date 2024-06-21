@@ -49,6 +49,7 @@ class CategoryDetails extends StatelessWidget {
                         Get.to(
                           () => ItemDetails(
                             title: item.name ?? 'No Name', // Handle null case
+                            imageitem: item.imageitem,
                             price: item.price?.toString() ??
                                 'Price not available', // Handle null case
                           ),
@@ -72,6 +73,13 @@ class CategoryDetails extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Image.asset(
+                              'assets/images/${item.imageitem ?? 'default_logo.png'}',
+                              width: 150,
+                              height: 150,
+                              fit: BoxFit.cover,
+                            ),
+                            SizedBox(height: 8),
                             Text(
                               item.name ??
                                   'No Name', // Display item name or placeholder text

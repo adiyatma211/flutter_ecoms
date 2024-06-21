@@ -1,15 +1,22 @@
+import 'package:flutter/material.dart';
 import 'package:emart_app/consts/consts.dart';
 
-Widget featuredButton({icon, String? title}) {
+Widget featuredButton({required String icon, required String title}) {
   return Row(
     children: [
-      Image.asset(
+      Image.network(
         icon,
         width: 65,
         fit: BoxFit.fill,
       ),
-      10.heightBox,
-      title!.text.fontFamily(semibold).color(darkFontGrey).make()
+      SizedBox(width: 10),
+      Text(
+        title,
+        style: TextStyle(
+          fontFamily: semibold,
+          color: darkFontGrey,
+        ),
+      ),
     ],
   )
       .box

@@ -5,7 +5,7 @@ import 'package:emart_app/model/mdlNota.dart'; // Import model getNota
 
 class InvoiceController {
   Future<getNota?> getInvoice(int userId, String token) async {
-    final url = 'http://192.168.1.8:8080/api/tampil/$userId';
+    final url = 'http://192.168.1.5:8080/api/tampil/$userId';
     try {
       final response = await http.get(
         Uri.parse(url),

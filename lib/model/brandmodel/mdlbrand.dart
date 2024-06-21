@@ -60,14 +60,22 @@ class Items {
   int? id;
   int? brandId;
   String? name;
+  String? imageitem;
   int? price;
   int? stock;
 
-  Items({this.id, this.brandId, this.name, this.price, this.stock});
+  Items(
+      {this.id,
+      this.brandId,
+      this.name,
+      this.imageitem,
+      this.price,
+      this.stock});
 
   Items.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     brandId = json['brand_id'];
+    imageitem = json['imageitem'];
     name = json['name'];
     price = json['price'];
     stock = json['stock'];
@@ -77,6 +85,7 @@ class Items {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['brand_id'] = this.brandId;
+    data['imageitem'] = this.imageitem;
     data['name'] = this.name;
     data['price'] = this.price;
     data['stock'] = this.stock;

@@ -11,9 +11,14 @@ import 'package:get/get.dart';
 
 class ItemDetails extends StatefulWidget {
   final String? title;
+  final String? imageitem;
   final String? price;
 
-  const ItemDetails({Key? key, required this.title, required this.price})
+  const ItemDetails(
+      {Key? key,
+      required this.title,
+      required this.price,
+      required this.imageitem})
       : super(key: key);
 
   @override
@@ -85,8 +90,9 @@ class _ItemDetailsState extends State<ItemDetails> {
                       aspectRatio: 16 / 9,
                       itemBuilder: (context, index) {
                         return Image.asset(
-                          imgB1,
-                          width: double.infinity,
+                          'assets/images/${widget.imageitem ?? 'default_logo.png'}',
+                          width: 200,
+                          height: 160,
                           fit: BoxFit.cover,
                         );
                       },
